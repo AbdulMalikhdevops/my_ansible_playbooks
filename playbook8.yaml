@@ -1,0 +1,21 @@
+---
+- name: playscope variables
+  hosts: all
+  vars:
+    - a: apache2
+    - b: present
+    - c: yes
+  tasks:
+    - name: install packages
+      apt:
+       name: "{{a}}"
+       state: "{{b}}"
+       update_cache: "{{c}}"
+      when:
+        a == "apache2"
+      register: output
+    - name: print the output
+      debug:
+         var: output
+
+ 

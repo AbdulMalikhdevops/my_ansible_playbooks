@@ -1,0 +1,18 @@
+---
+- name: creat a file in user's workspace
+  hosts: all
+  tasks:
+    - name: check if a directory structure is present
+      stat:
+        name: /home/abdul
+      register: output
+    - name: print the output of the above play
+      debug:
+        var: output
+    - name: create file
+      file: 
+        name: /home/abdul/file2.txt
+        state: touch
+      when:
+       output.stat.exists==true
+

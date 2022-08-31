@@ -1,0 +1,10 @@
+---
+- name: create a user
+  hosts: all
+    - name: create a user
+      user:
+        name: Abdul
+        password : 123456
+        home: /home/Abdul
+        shell: /bin/bash 
+         

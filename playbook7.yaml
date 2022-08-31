@@ -1,0 +1,19 @@
+---
+- name: install a package
+  hosts: 172.31.33.34
+  become: true
+  tasks:
+   - name: install a package
+     apt:
+       name: "{{a}}"
+       state: "{{d}}"
+       update_cache: "{{e}}"
+   - name: configure the page
+     copy:
+       content: "{{b}}"
+       dest: /var/www/html/index.html
+   - name: restart the application
+     service:
+       name: "{{a}}"
+       state: "{{c}}"
+

@@ -1,0 +1,25 @@
+---
+- name: playbook to demonstrate erro handling concepts
+  hosts: all
+  tasks:
+    - block:
+       - name: install git
+         apt: 
+           name: git
+           state: present
+           update_cache: yes
+      rescue:
+         - name: install git
+           apk:
+             name: git
+             state: present
+             update_cache: yes
+      always:
+         - name: create a file
+           file: 
+             name: /tmp/dir122
+             state: directory
+          
+
+
+

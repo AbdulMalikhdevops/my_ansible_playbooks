@@ -1,0 +1,38 @@
+---
+- name: install git, tree, maven uninstall git tree maven, create a user, create a file
+  hosts: all
+  tasks:
+    - name: install git
+      apt: 
+        name: git
+        state: present
+        update_cache: yes
+    - name: install maven
+      apt: 
+        name: maven
+        state: present
+        update_cache: yes
+      tags:
+        - install_maven
+    - name: install tree
+      apt:
+        state: present
+        update_cache: yes
+    - name: uninstall git
+      apt:
+        name: git
+        state: absent
+        update_cache: yes
+      tags:
+         - uninstall_git
+    - name: uninstall maven
+      apt:
+        name: maven
+        state: absent
+        update_cache: yes
+    - name: uninstall tree
+      apt: 
+        name: tree
+        state: absent
+        update_cache: yes
+

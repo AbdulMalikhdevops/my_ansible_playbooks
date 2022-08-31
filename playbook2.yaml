@@ -1,0 +1,41 @@
+---
+- name: configure tomcat
+  hosts: all
+  tasks:
+   - name: install tomcat
+     apt:
+       name: tomcat9
+       state: present
+       update_cache: yes
+     notify: install tomcat9-admin
+     notify: check the url on port 8080
+   - name: change the port of tomcat
+     replace: 
+       regexp: 8080
+       replace: 9090
+       path: /etc/tomcat9/server.xml
+     notify: restart tomcat
+     notify: check url on 9090 port
+  handlers:
+   - name: install tomcat9-admin
+     apt:
+       name: tomcat9-admin
+       state: present
+   - name: check url on port 8080
+     uri:
+       url: http://172.31.35.85:8080
+       status_code: 200
+       url: http://172.31.46.41:8080
+       status_code: 200
+   - name: restart tomcat
+     service:
+      name: tomcat9
+      state: restarted
+   - name: check url on 9090 port
+     uri:
+       url: http://172.31.35.85:9090
+       status_code: 200
+       url: http://172.31.46.41:9090
+       status_code: 200
+
+
